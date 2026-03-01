@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css"
-import { validateHeaderName } from "http";
  export default function Kalkulator() {
 
     const[num1,setNum1]=useState("")
@@ -26,7 +25,7 @@ import { validateHeaderName } from "http";
             </div>
 
             <div className="child2">
-             <button value="7" onClick={()=>firstClick}>7</button>
+             <button value="7" onClick={firstClick}>7</button>
              <button value="8" onClick={firstClick}>8</button>
              <button value="9" onClick={firstClick}>9</button>
              <button value="4" onClick={firstClick}>4</button>
