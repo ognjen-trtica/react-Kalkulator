@@ -1,14 +1,16 @@
 import { useState } from "react"
 const[result,setResult]=useState("")
-const[num1,setNum1]=useState<number>(0)
+const[num1,setNum1]=useState("")
 const[num2,setNum2]=useState<number>(0)
 const[operacija,setOperacija]=useState("")
 function handleClick(){
     function firstClick( e:React.MouseEvent<HTMLButtonElement>){
         const value = e.currentTarget.value
             setResult(prev=>prev+value)
-            setNum1(parseInt(result))
-            setOperacija(e.currentTarget.value)
+            if (value=="+"){setResult(value)}
+            else if(value=="-"){setResult(value)}
+            
+
     }
     function secondClick(){
         
@@ -16,22 +18,22 @@ function handleClick(){
 
 
 }
- let rezultat:number=0
+//  let rezultat:number=0
 
 
-    switch (operacija) {
-        case "+":
-            rezultat=num1+num2
-            break;
+//     switch (operacija) {
+//         case "+":
+//             rezultat=num1+num2
+//             break;
 
-        case "-":
-           rezultat = num1 - num2
-           break;
+//         case "-":
+//            rezultat = num1 - num2
+//            break;
     
-        default:
-            console.log("ne mozes da unese dva puta operaciju")
-            break;
-    }
+//         default:
+//             console.log("ne mozes da unese dva puta operaciju")
+//             break;
+//     }
 
 
 //kada klikne + ili - da od stringa napravi broj 
