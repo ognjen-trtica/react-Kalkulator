@@ -17,6 +17,7 @@ import "./App.css"
         const value = e.currentTarget.value 
         
         if (!isNaN(Number(value))) {
+            if(rezultat.length<20 )
             setRezultat(prev=>prev+value) // ovde hocu samo broj da ispisem
         }
 
@@ -33,12 +34,9 @@ import "./App.css"
                     }
 
             setOperacija(value);
-            setRezultat("")
-            
+            setRezultat("")   
 
         }
-        
-
     }
 
     return(
@@ -47,11 +45,11 @@ import "./App.css"
 
         <div className="parent1">
 
-            <div className="child1">
+            <div className="par1-child1">
                 <p>{rezultat || num1}</p>
             </div>
 
-            <div className="child2">
+            <div className="par1-child2">
              <button value="9" onClick={firstClick}>9</button>
              <button value="8" onClick={firstClick}>8</button>
              <button value="7" onClick={firstClick}>7</button>
@@ -74,6 +72,11 @@ import "./App.css"
             <p key={index}>
                 {item}
             </p>)}
+            <img src="./Smece.jpg" 
+                    alt="Ova slika sluzi za brisanje lisa"
+                    title="Obrisi lisu"
+                    className="img-clear"
+                    onClick={()=>setList([])} />
         </div>
 
     </div>
