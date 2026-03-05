@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import "./App.css"
  export default function Kalkulator() {
 
-    const[num1,setNum1]=useState<number |null>(null) // ovo mi je cedni pomogao trzio sam kako da def broj ali da ne stavim pocetnu vrednost i to ovo radi number | null
+    const[num1,setNum1]=useState<bigint |null>(null) // ovo mi je cedni pomogao trzio sam kako da def broj ali da ne stavim pocetnu vrednost i to ovo radi number | null
     const[rezultat,setRezultat]=useState<string>("")
     const[operacija,setOperacija]=useState<string>("")
     const[list,setList]=useState<string[]>([])
@@ -22,15 +22,16 @@ import "./App.css"
         }
 
             if (value === "+" || value==="-"){//ovde hocu da na klik ispise mi + ili - 
-                if (num1!==null&&rezultat!==""&&operacija!=="") {// num1 mi je nova vrednost rezultat stara
-                    const res = operacija === "+"?num1+Number(rezultat) : num1-Number(rezultat) 
+                if (num1!==null && rezultat!==""&& operacija!=="") {// num1 mi je nova vrednost rezultat stara
+                    const trnutniRezultat = BigInt(rezultat)
+                    const res = operacija === "+"? num1+trnutniRezultat : num1-trnutniRezultat 
                         setRezultat(String(res))
                         setNum1(res)
                         const history = `${num1}${operacija}${rezultat}=${res}`
                             setList(prev=>[...prev,history])
                  }
-                else{
-                    setNum1(Number(rezultat))
+                else if(rezultat!==""){
+                    setNum1(BigInt(rezultat))// ovo sam dodao da kada kliknem prvi put operaciju da ne ispse nista jer mi je pre ovoga ispisvalo 0
                     }
 
             setOperacija(value);
