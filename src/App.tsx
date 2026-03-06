@@ -2,36 +2,37 @@ import { useLayoutEffect, useState } from "react";
 import "./App.css"
  export default function Kalkulator() {
 
-    const[num1,setNum1]=useState<bigint |null>(null) // ovo mi je cedni pomogao trzio sam kako da def broj ali da ne stavim pocetnu vrednost i to ovo radi number | null
+    const[stariRezultat,setStariRezultat]=useState<bigint |null>(null) // ovo mi je cedni pomogao trzio sam kako da def broj ali da ne stavim pocetnu vrednost i to ovo radi number | null
     const[rezultat,setRezultat]=useState<string>("")
     const[operacija,setOperacija]=useState<string>("")
     const[list,setList]=useState<string[]>([])
 
 
 
-    //firstClick ako je p prazan onda da ide first click
-    // secondClick ako vez postoji
-    //tj ako mi je rezultat prazan string ide firstClick ako ide secondClick onda 
-    //treba da sabere dva broja
+    //plan je da mi prvo ispise string brojeva
+    //klikom na jednu od operacija da postane staribroj
+    //
     function firstClick(e: React.MouseEvent<HTMLButtonElement>) {
         const value = e.currentTarget.value 
         
         if (!isNaN(Number(value))) {
-            if(rezultat.length<20 )
+            if(rezultat.length<20 )// ogranicavam ga na 20 cifara
             setRezultat(prev=>prev+value) // ovde hocu samo broj da ispisem
         }
 
             if (value === "+" || value==="-"){//ovde hocu da na klik ispise mi + ili - 
-                if (num1!==null && rezultat!==""&& operacija!=="") {// num1 mi je nova vrednost rezultat stara
+                if (stariRezultat!==null && rezultat!==""&& operacija!=="") {// num1 mi je nova vrednost rezultat stara
                     const trnutniRezultat = BigInt(rezultat)
-                    const res = operacija === "+"? num1+trnutniRezultat : num1-trnutniRezultat 
+                    const res = operacija === "+"? stariRezultat+trnutniRezultat : stariRezultat-trnutniRezultat 
                         setRezultat(String(res))
-                        setNum1(res)
-                        const history = `${num1}${operacija}${rezultat}=${res}`
+                        setStariRezultat(res)
+                        const history = `${stariRezultat}${operacija}${rezultat}=${res}`
                             setList(prev=>[...prev,history])
                  }
                 else if(rezultat!==""){
-                    setNum1(BigInt(rezultat))// ovo sam dodao da kada kliknem prvi put operaciju da ne ispse nista jer mi je pre ovoga ispisvalo 0
+                    setStariRezultat(BigInt(rezultat))
+                    // ovo sam dodao da kada kliknem prvi put operaciju da ne ispse nista jer mi je pre ovoga ispisvalo 0
+                    // dodao sam else if umesto else zato sto imam uslov da mi savuva broj u stari, ali da mi ne ispise 0 ako kliknem jednu od operacija
                     }
 
             setOperacija(value);
@@ -47,7 +48,7 @@ import "./App.css"
         <div className="parent1">
 
             <div className="par1-child1">
-                <p>{rezultat || num1}</p>
+                <p>{rezultat || stariRezultat}</p>
             </div>
 
             <div className="par1-child2">
