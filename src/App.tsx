@@ -1,11 +1,13 @@
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css"
+import { stringify } from "querystring";
  export default function Kalkulator() {
 
     const[stariRezultat,setStariRezultat]=useState<bigint |null>(null) // ovo mi je cedni pomogao trzio sam kako da def broj ali da ne stavim pocetnu vrednost i to ovo radi number | null
     const[rezultat,setRezultat]=useState<string>("")
     const[operacija,setOperacija]=useState<string>("")
     const[list,setList]=useState<string[]>([])
+    const[error,setError]=useState<string>("")
 
 
 
@@ -18,6 +20,7 @@ import "./App.css"
         if (!isNaN(Number(value))) {
             if(rezultat.length<20 )// ogranicavam ga na 20 cifara
             setRezultat(prev=>prev+value) // ovde hocu samo broj da ispisem
+            else setError(String(alert("Uneo si maksimalna broj cifara")))
         }
 
             if (value === "+" || value==="-"){//ovde hocu da na klik ispise mi + ili - 
@@ -34,9 +37,13 @@ import "./App.css"
                     // ovo sam dodao da kada kliknem prvi put operaciju da ne ispse nista jer mi je pre ovoga ispisvalo 0
                     // dodao sam else if umesto else zato sto imam uslov da mi savuva broj u stari, ali da mi ne ispise 0 ako kliknem jednu od operacija
                     }
+                    
+                else if(rezultat == ""){
+                    setError(String(alert("Unesi broj")))
+                }
 
             setOperacija(value);
-            setRezultat("")   
+            setRezultat("") 
 
         }
     }
